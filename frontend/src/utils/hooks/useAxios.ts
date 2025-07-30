@@ -11,7 +11,7 @@ export const injectStore = (_store: any) => {
   store = _store;
 };
 
-const BACKEND_URL = "https://api.bestproject.buzz";
+const BACKEND_URL = "http://localhost:8080";
 
 // Detect language changes
 i18n.on("languageChanged", (newLang) => {
@@ -175,3 +175,4 @@ useAuthFileAxios.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+
