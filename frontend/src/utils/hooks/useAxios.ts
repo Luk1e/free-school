@@ -11,7 +11,7 @@ export const injectStore = (_store: any) => {
   store = _store;
 };
 
-const BACKEND_URL = "http://localhost:8080";
+const BACKEND_URL = "https://capstoneproject-7f9w.onrender.com";
 
 // Detect language changes
 i18n.on("languageChanged", (newLang) => {
