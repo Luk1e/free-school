@@ -12,7 +12,7 @@ import {
 } from "../values";
 import { useNavigate } from "react-router-dom";
 import { respondTo } from "../../../../utils/helpers/_respondTo";
-import { ZodError } from "zod";
+import { z } from "zod";
 import { useDispatch, useSelector } from "react-redux";
 import { DispatchType, StateType } from "../../../../store/store";
 import { reset } from "../../../../toolkit/auth/loginSlice";
@@ -79,7 +79,6 @@ const IconContainer = styled.div`
   margin-bottom: 0.1rem;
 `;
 
-// Export login component
 function LoginForm() {
   const navigate = useNavigate();
   const dispatch: DispatchType = useDispatch();
@@ -94,13 +93,12 @@ function LoginForm() {
   }, []);
 
   const validateForm = (values: FormValues) => {
-    try {
-      validationSchema(t).parse(values);
-    } catch (error) {
-      if (error instanceof ZodError) {
-        return error.formErrors.fieldErrors;
-      }
+    const result = validationSchema(t).safeParse(values);
+    if (!result.success) {
+      const { fieldErrors } = z.flattenError(result.error);
+      return fieldErrors;
     }
+    return {};
   };
 
   return (

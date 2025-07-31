@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { respondTo } from "../../../../utils/helpers/_respondTo";
 import { useState } from "react";
 import { Formik, Form } from "formik";
-import { ZodError } from "zod";
+import { z } from "zod";
 import { DispatchType, StateType } from "../../../../store/store";
 import {
   initialValues,
@@ -145,13 +145,12 @@ function JoinClassroom() {
   }, []);
 
   const validateForm = (values: FormValues) => {
-    try {
-      validationSchema.parse(values);
-    } catch (error) {
-      if (error instanceof ZodError) {
-        return error.formErrors.fieldErrors;
-      }
+    const result = validationSchema.safeParse(values);
+    if (!result.success) {
+      const { fieldErrors } = z.flattenError(result.error);
+      return fieldErrors;
     }
+    return {};
   };
 
   return (

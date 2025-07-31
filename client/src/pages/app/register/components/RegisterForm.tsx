@@ -14,7 +14,7 @@ import { respondTo } from "../../../../utils/helpers/_respondTo";
 import { useState } from "react";
 import RightArrowSVG from "../../../../static/svg/RightArrowSVG";
 import LeftArrowSVG from "../../../../static/svg/LeftArrowSVG";
-import { ZodError } from "zod";
+import { z } from "zod";
 import { useDispatch, useSelector } from "react-redux";
 import { DispatchType, StateType } from "../../../../store/store";
 import { useEffect } from "react";
@@ -158,13 +158,12 @@ function RegisterForm() {
   const [isFirstPage, setIsFirstPage] = useState(true);
 
   const validateForm = (values: FormValues) => {
-    try {
-      validationSchema(t).parse(values);
-    } catch (error) {
-      if (error instanceof ZodError) {
-        return error.formErrors.fieldErrors;
-      }
+    const result = validationSchema(t).safeParse(values);
+    if (!result.success) {
+      const { fieldErrors } = z.flattenError(result.error);
+      return fieldErrors;
     }
+    return {};
   };
 
   return (

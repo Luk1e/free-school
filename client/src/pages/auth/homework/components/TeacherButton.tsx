@@ -7,7 +7,7 @@ import {
   gradeValidationSchema,
   onGradeSubmit,
 } from "../values";
-import { ZodError } from "zod";
+import { z } from "zod";
 import { useDispatch } from "react-redux";
 import { DispatchType } from "../../../../store/store";
 import { respondTo } from "../../../../utils/helpers/_respondTo";
@@ -109,13 +109,12 @@ function TeacherButton({ homework, idObject, isLoading }: TeacherButtonProps) {
   const { t } = useTranslation(["auth"]);
 
   const validateForm = (values: GradeFormValues) => {
-    try {
-      gradeValidationSchema.parse(values);
-    } catch (error) {
-      if (error instanceof ZodError) {
-        return error.formErrors.fieldErrors;
-      }
+    const result = gradeValidationSchema.safeParse(values);
+    if (!result.success) {
+      const { fieldErrors } = z.flattenError(result.error);
+      return fieldErrors;
     }
+    return {};
   };
 
   return (

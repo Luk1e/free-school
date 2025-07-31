@@ -8,7 +8,7 @@ import {
   FileFormvalues,
   onFileSubmit,
 } from "../values";
-import { ZodError } from "zod";
+import { z } from "zod";
 import { useDispatch } from "react-redux";
 import { DispatchType } from "../../../../store/store";
 import { respondTo } from "../../../../utils/helpers/_respondTo";
@@ -111,14 +111,14 @@ function StudentButton({ homework, idObject, isLoading }: StudentButtonProps) {
   const { t } = useTranslation(["auth"]);
 
   const validateForm = (values: FileFormvalues) => {
-    try {
-      fileValidationSchema.parse(values);
-    } catch (error) {
-      if (error instanceof ZodError) {
-        return error.formErrors.fieldErrors;
-      }
+    const result = fileValidationSchema.safeParse(values);
+    if (!result.success) {
+      const { fieldErrors } = z.flattenError(result.error);
+      return fieldErrors;
     }
+    return {};
   };
+
   return (
     <Container>
       <Formik

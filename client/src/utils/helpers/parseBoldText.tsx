@@ -1,6 +1,6 @@
 // this function gets string with bold tag and returns normal html without using dangerous methods
-function parseBoldText(text: string): JSX.Element {
-  const parts: (string | JSX.Element)[] = [];
+function parseBoldText(text: string): React.JSX.Element {
+  const parts: (string | React.JSX.Element)[] = [];
   const regex = /(<b>.*?<\/b>)/g;
   let lastIndex = 0;
 

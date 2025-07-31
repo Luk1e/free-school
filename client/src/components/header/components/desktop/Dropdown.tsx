@@ -24,7 +24,7 @@ const DropDown = styled.div`
 
 type Language = {
   lang: string;
-  icon: () => JSX.Element;
+  icon: () => React.JSX.Element;
 };
 
 interface DropdownProps {
