@@ -1,7 +1,6 @@
 import axios from "axios";
 import { refresh, logout } from "../../toolkit/auth/authSlice";
 import i18n from "../../i18next";
-// Implementing a request queue in Axios interceptors
 import { AxiosRequestConfig } from "axios";
 
 // Export store injection function,
@@ -11,7 +10,7 @@ export const injectStore = (_store: any) => {
   store = _store;
 };
 
-const BACKEND_URL = "https://capstoneproject-7f9w.onrender.com";
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
 // Detect language changes
 i18n.on("languageChanged", (newLang) => {
@@ -175,4 +174,3 @@ useAuthFileAxios.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-
