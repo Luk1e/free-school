@@ -1,0 +1,19 @@
+package com.freeschool.server.dto.student;
+
+import com.freeschool.server.enums.EnrollmentStatus;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class StudentDto {
+    private Long userId;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private EnrollmentStatus status;
+}
