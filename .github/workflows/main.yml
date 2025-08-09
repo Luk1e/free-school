@@ -2,9 +2,8 @@ name: ci
 
 on:
   push:
-    branches: [ "production" ]
-  pull_request_target:
-    branches: [ "production" ]
+  pull_request:
+  merge_group:
 
 jobs:
   server-tests:
