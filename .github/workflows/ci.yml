@@ -1,7 +1,10 @@
 name: ci
 
 on:
-  pull_request
+  push:
+    branches: [ "production" ]
+  pull_request:
+    branches: [ "production" ]
 
 jobs:
   server-tests:
