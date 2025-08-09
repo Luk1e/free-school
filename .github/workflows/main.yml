@@ -2,8 +2,9 @@ name: ci
 
 on:
   push:
+    branches: [production]
   pull_request:
-  merge_group:
+    branches: [production]
 
 jobs:
   server-tests:
