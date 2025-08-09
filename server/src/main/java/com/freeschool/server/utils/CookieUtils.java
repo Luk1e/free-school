@@ -29,6 +29,6 @@ public class CookieUtils {
                 .sameSite("None")
                 .build();
 
-        response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
+        response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString() + "; Partitioned");
     }
 }
