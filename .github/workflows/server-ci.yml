@@ -1,14 +1,10 @@
-name: FREE-SCHOOL CI
+name: ci
 
 on:
-  push:
-    branches: ["production"]
-  pull_request:
-    branches: ["production"]
+  pull_request
 
 jobs:
   server-tests:
-    name: server test
     runs-on: ubuntu-latest
 
     services:
