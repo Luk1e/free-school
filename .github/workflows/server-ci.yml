@@ -3,14 +3,8 @@ name: Server CI (Fresh MySQL per run)
 on:
   push:
     branches: [ "production" ]
-    paths:
-      - 'server/**'
-      - '.github/workflows/server-ci.yml'
   pull_request:
     branches: [ "production" ]
-    paths:
-      - 'server/**'
-      - '.github/workflows/server-ci.yml'
 
 jobs:
   server-tests:
